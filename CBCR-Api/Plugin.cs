@@ -1,0 +1,42 @@
+using HarmonyLib;
+using LabApi.Features;
+using LabApi.Loader.Features.Plugins;
+using LabApi.Loader.Features.Plugins.Enums;
+
+namespace CustomRoleLib
+{
+    public class CustomRoleLibPlugin : Plugin<Config>
+    {
+        public static CustomRoleLibPlugin Instance { get; private set; }
+        public override string Name => "Component Based Custom Role API";
+        public override string Description => "An API for creating and managing custom roles.";
+
+        public override string Author => "OMEGA3065";
+
+        public override Version Version => GetType().Assembly.GetName().Version;
+        public override LoadPriority Priority => LoadPriority.Highest;
+        public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
+
+        public CustomRoleLibPlugin()
+        {
+            Instance = this;
+        }
+
+        private Harmony _harmony;
+
+        public override void Enable()
+        {
+            _harmony = new Harmony("omega3065.custom_role_lib");
+            _harmony.PatchAll();
+
+#if IsRaCustomMenuBuild == false
+            Compat.RaCustomMenuCompat.Init();
+#endif
+        }
+
+        public override void Disable()
+        {
+            _harmony.UnpatchAll();
+        }
+    }
+}

@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>Omega3065.ComponentBasedCustomRoleAPI</PackageId>
+    <Version>0.0.0.1</Version>
+    <Authors>OMEGA3065</Authors>
+    <IsPackable>true</IsPackable>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/OMEGA3065/CBCR-API/</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp" Publicize="true" Private="false" Pack="false" />
+    <Reference Include="CommandSystem.Core">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="RaCustomMenu">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="Mirror">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="NorthwoodLib">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    <Reference Include="ProjectMER">
+      <Private>false</Private>
+      <Pack>false</Pack>
+    </Reference>
+    
+    <None Include="..\LICENSE" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(IsRaCustomMenuBuild)'=='false'">
+    <Compile Remove="Compat\RaCustomMenuCompat.cs" />
+    <Compile Remove="Compat\RaCustomMenuCompatability\**\*.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Northwood.LabAPI" Version="1.1.4" />
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+  </ItemGroup>
+</Project>
