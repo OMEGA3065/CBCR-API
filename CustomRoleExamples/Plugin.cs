@@ -47,7 +47,7 @@ namespace CustomRoleExamples
 
         public override void Disable()
         {
-            CustomRoleManager.UnregisterAllItems();
+            CustomRoleManager.UnregisterAllRoles();
             _harmony.UnpatchAll();
         }
     }

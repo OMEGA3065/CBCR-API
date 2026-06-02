@@ -11,16 +11,16 @@ namespace CustomRoleLib.API
     public static class CustomRoleManager
     {
         /// <summary>
-        /// Used for the <see cref="CustomItemRegistryChangeEvent"/> event.
+        /// Used for the <see cref="CustomRoleManager.CustomRoleRegistryChangeEvent"/> event.
         /// </summary>
         /// <param name="customRole">What item was registered / unregistered.</param>
         /// <param name="wasRegistered">Whether the item was registered (true) or unregistered (false).</param>
-        public delegate void CustomItemRegistryChangeEventHandler(ICustomRole<object> customRole, bool wasRegistered);
+        public delegate void CustomRoleRegistryChangeEventHandler(ICustomRole<object> customRole, bool wasRegistered);
 
         /// <summary>
         /// An event invoked each time a custom item is registered or unregistered.
         /// </summary>
-        public static event CustomItemRegistryChangeEventHandler CustomItemRegistryChangeEvent;
+        public static event CustomRoleRegistryChangeEventHandler CustomRoleRegistryChangeEvent;
 
         /// <summary>
         /// The list of all registered items.
@@ -34,7 +34,7 @@ namespace CustomRoleLib.API
         /// <param name="role">The custom item definition to register.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns>Whether the item was registered successfully.</returns>
-        public static bool RegisterItem<T>(ICustomRole<T> role)
+        public static bool RegisterRole<T>(ICustomRole<T> role)
         {
             if (Roles.ContainsKey(role.Namespace))
                 return false;
@@ -42,7 +42,7 @@ namespace CustomRoleLib.API
                 return false;
             typed.Initialize();
             Roles[role.Namespace] = typed;
-            CustomItemRegistryChangeEvent?.Invoke(typed, true);
+            CustomRoleRegistryChangeEvent?.Invoke(typed, true);
             return true;
         }
 
@@ -51,10 +51,10 @@ namespace CustomRoleLib.API
         /// </summary>
         /// <param name="role">The custom item definition to unregister.</param>
         /// <returns>Whether the item was unregistered successfully.</returns>
-        public static bool UnregisterItem(ICustomRole<object> role)
+        public static bool UnregisterRole(ICustomRole<object> role)
         {
             if (!Roles.Remove(role.Namespace)) return false;
-            CustomItemRegistryChangeEvent?.Invoke(role, true);
+            CustomRoleRegistryChangeEvent?.Invoke(role, true);
             return true;
         }
 
@@ -105,7 +105,7 @@ namespace CustomRoleLib.API
                 try
                 {
                     var item = (ICustomRole<object>)Activator.CreateInstance(type);
-                    if (RegisterItem(item))
+                    if (RegisterRole(item))
                     {
                         registeredItems.Add(item);
                     }
@@ -132,13 +132,13 @@ namespace CustomRoleLib.API
         /// </summary>
         /// <param name="assembly">The assembly to search for item definitions.</param>
         /// <returns>An <see cref="IEnumerable{ICustomItem{object}}"/> of definitions that have been successfully registered.</returns>
-        public static IEnumerable<ICustomRole<object>> UnregisterAllItems(Assembly assembly)
+        public static IEnumerable<ICustomRole<object>> UnregisterAllRoles(Assembly assembly)
         {
             IEnumerable<ICustomRole<object>> unregisteredItems = [];
             foreach (var item in Roles.Values.ToArray())
             {
                 if (item.GetType().Assembly != assembly) continue;
-                if (UnregisterItem(item))
+                if (UnregisterRole(item))
                     unregisteredItems = unregisteredItems.AddItem(item);
             }
             return unregisteredItems;
@@ -148,9 +148,9 @@ namespace CustomRoleLib.API
         /// Unregisters all Item definitions in a <see cref="Assembly.GetCallingAssembly"/> assembly.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{ICustomItem{object}}"/> of definitions that have been successfully registered.</returns>
-        public static IEnumerable<ICustomRole<object>> UnregisterAllItems()
+        public static IEnumerable<ICustomRole<object>> UnregisterAllRoles()
         {
-            return UnregisterAllItems(Assembly.GetCallingAssembly());
+            return UnregisterAllRoles(Assembly.GetCallingAssembly());
         }
     }
 }
