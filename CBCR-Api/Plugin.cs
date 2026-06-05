@@ -1,4 +1,6 @@
+using CustomRoleLib.API;
 using HarmonyLib;
+using LabApi.Events.Handlers;
 using LabApi.Features;
 using LabApi.Loader.Features.Plugins;
 using LabApi.Loader.Features.Plugins.Enums;
@@ -32,11 +34,13 @@ namespace CustomRoleLib
 #if IsRaCustomMenuBuild == false
             Compat.RaCustomMenuCompat.Init();
 #endif
+            PlayerEvents.ChangingRole += CustomSpawnManager.OnPlayerChangingRole;
         }
 
         public override void Disable()
         {
             _harmony.UnpatchAll();
+            PlayerEvents.ChangingRole -= CustomSpawnManager.OnPlayerChangingRole;
         }
     }
 }

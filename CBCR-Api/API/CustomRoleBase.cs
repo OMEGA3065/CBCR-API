@@ -5,6 +5,7 @@ using CustomRoleLib.API.Attributes;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
+using UnityEngine;
 using Logger = LabApi.Features.Console.Logger;
 
 namespace CustomRoleLib.API
@@ -43,6 +44,21 @@ namespace CustomRoleLib.API
                 return field;
             }
         } = RoleTypeId.Destroyed;
+
+        /// <inheritdoc/>
+        public virtual bool NaturallySpawnable => false;
+
+        /// <inheritdoc/>
+        public virtual float RoleSpawnWeight => 0f;
+
+        /// <inheritdoc/>
+        public virtual float RoleNotSpawnWeight => 0f;
+
+        /// <inheritdoc/>
+        public virtual string RoleSpawnGroup => Namespace.ToString();
+
+        /// <inheritdoc/>
+        public virtual RoleTypeId[] RoleSpawnOriginalRoleIds => Type.HasValue ? [Type.Value] : [];
 
         /// <summary>
         /// The list of attached <see cref="ICustomRoleComponent{T}"/>
@@ -135,13 +151,13 @@ namespace CustomRoleLib.API
         /// <param name="player">The <see cref="LabApi.Features.Wrappers.Player"/> to which the role will be given.</param>
         /// <param name="roleInstance">The created <see cref="RoleInstanceBase"/>.</param>
         /// <returns>Whether the item was gives successfully.</returns>
-        public bool TryGiveRole(Player player, out T roleInstance)
+        public bool TryGiveRole(Player player, out T roleInstance, bool skipManualRoleChange = false)
         {
             roleInstance = CreateInstance(player);
             if (roleInstance == null) return false;
             roleInstance.Namespace = Namespace;
-            if (Type != null)
-                player.SetRole(Type.Value, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.None);
+            if (!skipManualRoleChange && Type.HasValue)
+                player.SetRole(Type.Value, CustomSpawnManager.CustomRoleChange, RoleSpawnFlags.None);
             return true;
         }
 
@@ -186,7 +202,8 @@ namespace CustomRoleLib.API
                 return;
             }
 
-            if (ev.Player.Role == Type && !roleInstance.Initialized)
+            if (ev.ChangeReason == CustomSpawnManager.CustomRoleChange
+                && ev.Player.Role == Type && !roleInstance.Initialized)
             {
                 roleInstance.Initialized = true;
                 ComponentAttributes.ForEach(c => c.OnCreatedInstance(roleInstance));
@@ -210,9 +227,9 @@ namespace CustomRoleLib.API
         }
 
         /// <inheritdoc/>
-        public bool TryGiveRole(Player player)
+        public bool TryGiveRole(Player player, bool skipManualRoleChange = false)
         {
-            return TryGiveRole(player, out _);
+            return TryGiveRole(player, out _, skipManualRoleChange);
         }
     }
 }

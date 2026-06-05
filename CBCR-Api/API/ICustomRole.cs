@@ -37,6 +37,31 @@ namespace CustomRoleLib.API
         public RoleTypeId? Type { get; }
 
         /// <summary>
+        /// Dictates whether the role can spawn naturally during some role changes.
+        /// </summary>
+        public bool NaturallySpawnable { get; }
+
+        /// <summary>
+        /// How likely is the role to spawn on a player.
+        /// </summary>
+        public float RoleSpawnWeight { get; }
+
+        /// <summary>
+        /// How likely is the role to NOT spawn on a player.
+        /// </summary>
+        public float RoleNotSpawnWeight { get; }
+
+        /// <summary>
+        /// The group this role belongs to.
+        /// </summary>
+        public string RoleSpawnGroup => Namespace.ToString();
+
+        /// <summary>
+        /// Role will only be spawned if the reason for the spawn is in this array.
+        /// </summary>
+        public RoleTypeId[] RoleSpawnOriginalRoleIds => Type.HasValue ? [Type.Value] : [];
+
+        /// <summary>
         /// The dictionary of <see cref="RoleInstanceBase"/> handled by this Role.
         /// </summary>
         public Dictionary<Player, RoleInstanceBase> Instances { get; }
@@ -68,8 +93,13 @@ namespace CustomRoleLib.API
         /// Tries to give this Role Definition's <see cref="RoleInstanceBase"/> to a specified <see cref="LabApi.Features.Wrappers.Player"/>.
         /// </summary>
         /// <param name="player">The <see cref="LabApi.Features.Wrappers.Player"/> to which the role will be given.</param>
+        /// <param name="skipManualRoleChange">
+        /// Will skip <see cref="Player.SetRole"/> in favor if it being handled externally if set to true.
+        /// Will ALWAYS assume that the RoleChangedEvent will be fired
+        /// with the appropriate <see cref="RoleChangeReason"/> afterwards.
+        /// </param>
         /// <returns>Whether the role was given successfully.</returns>
-        public bool TryGiveRole(Player player);
+        public bool TryGiveRole(Player player, bool skipManualRoleChange = false);
 
         /// <summary>
         /// Used to initialize this Custom Role Definition.

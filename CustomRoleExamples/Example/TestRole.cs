@@ -30,13 +30,7 @@ namespace CustomRoleExamples.Example
             Owner.Health = Health;
         }
 
-        public float Health { get; set; } = 100f;
-
-        public Color ItemLightColor => Color.green;
-
-        public float ItemLightRange => 4f;
-
-        public float ItemLightIntensity => 2f;
+        public float Health { get; set; }
 
     }
 }
