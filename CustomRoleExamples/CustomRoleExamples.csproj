@@ -6,27 +6,10 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="..\..\References\Assembly-CSharp.dll">
-    </Reference>
-    <Reference Include="..\..\References\CommandSystem.Core.dll">
-    </Reference>
-    <Reference Include="..\..\TestPlugin\server\SL\LabAPI\plugins\global\0Harmony.dll">
-    </Reference>
-    <Reference Include="MEC">
-      <HintPath>..\..\References\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\References\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirror">
-      <HintPath>..\..\References\Mirror.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>..\..\References\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\References\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
+    <Reference Include="Assembly-CSharp.dll"/>
+    <Reference Include="Assembly-CSharp-firstpass.dll"/>
+    <Reference Include="UnityEngine.CoreModule.dll"/>
+    <Reference Include="UnityEngine.PhysicsModule.dll"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Northwood.LabAPI" Version="1.1.4" />
