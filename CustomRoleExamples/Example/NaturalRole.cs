@@ -1,7 +1,9 @@
+using CustomRoleLib;
 using CustomRoleLib.API;
 using CustomRoleLib.API.Attributes;
 using CustomRoleLib.API.DefaultComponents;
 using CustomRoleLib.API.DefaultComponents.Generic;
+using LabApi.Features.Extensions;
 using MEC;
 using PlayerRoles;
 using UnityEngine;
@@ -9,8 +11,9 @@ using UnityEngine;
 namespace CustomRoleExamples.Example
 {
     [CustomRole(RoleTypeId.Scientist)]
-    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent<NaturalRoleInstance>))]
+    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent))]
     [CustomRoleAttributeBase(typeof(InitializerComponent<NaturalRoleInstance>))]
+    [CustomSpawnpointRole<NaturalRoleInstance>(RoleTypeId.FacilityGuard)]
     public class NaturalRole : CustomRoleBase<NaturalRoleInstance>
     {
         public override string Name => "Lost Scientist";

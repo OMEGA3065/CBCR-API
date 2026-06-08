@@ -6,11 +6,11 @@ namespace CustomRoleLib.API.DefaultComponents;
 /// A component used for giving the attached <see cref="CustomRoleBase{T}"/> an on-screen hint for the player who is obtains the role.
 /// </summary>
 /// <typeparam name="T"><inheritdoc/></typeparam>
-public class RoleReceivedHintComponent<T> : ComponentBase<T>
-    where T : RoleInstanceBase
+public class RoleReceivedHintComponent : ComponentBase<RoleInstanceBase>
 {
-    public override void OnCreatedInstance(T itemInstance)
+    public override void OnCreatedInstance(RoleInstanceBase instance)
     {
-        itemInstance.Owner?.SendHint($"You have:\n{itemInstance.Parent.Name}");
+        base.OnCreatedInstance(instance);
+        instance.Owner?.SendHint($"You have:\n{instance.Parent.Name}");
     }
 }

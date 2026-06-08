@@ -1,9 +1,12 @@
+using CustomAbilityLib.API;
 using CustomRoleLib;
 using CustomRoleLib.API;
+using CustomRoleLib.ServerSpecificSettings;
 using HarmonyLib;
 using LabApi.Features;
 using LabApi.Loader.Features.Plugins;
 using LabApi.Loader.Features.Plugins.Enums;
+using SecretAPI.Features.UserSettings;
 
 namespace CustomRoleExamples
 {
@@ -20,7 +23,7 @@ namespace CustomRoleExamples
         public override Version Version => new(0, 1, 6);
         public override LoadPriority Priority => LoadPriority.Highest;
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
-        
+
         public CustomItemLibPlugin()
         {
             Instance = this;
@@ -32,7 +35,7 @@ namespace CustomRoleExamples
         {
             _harmony = new Harmony("omega3065.cbciapi");
             _harmony.PatchAll();
-            
+
             // You can register items individually
             // items = [
             //     new TestItem(),
@@ -42,12 +45,14 @@ namespace CustomRoleExamples
             // ];
             // items.ForEach(item => CustomItemManager.RegisterItem(item));
 
+            CustomAbilityManager.RegisterAllAbilities();
             CustomRoleManager.RegisterAllRoles();
         }
 
         public override void Disable()
         {
             CustomRoleManager.UnregisterAllRoles();
+            CustomAbilityManager.UnregisterAllAbilities();
             _harmony.UnpatchAll();
         }
     }

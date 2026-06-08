@@ -5,9 +5,9 @@ using PlayerRoles;
 namespace CustomRoleLib.API
 {
     /// <summary>
-    /// The base interface defining the base features of an Item Definition. <see cref="CustomRoleBase{T}"/>
+    /// The base interface defining the base features of a Role Definition. <see cref="CustomRoleBase{T}"/>
     /// </summary>
-    /// <typeparam name="T">The <see cref="RoleInstanceBase"/> to use for this Item Definition.</typeparam>
+    /// <typeparam name="T">The <see cref="RoleInstanceBase"/> to use for this Role Definition.</typeparam>
     public interface ICustomRole<out T>
     {
         /// <summary>
@@ -26,9 +26,9 @@ namespace CustomRoleLib.API
         public string Id { get; }
 
         /// <summary>
-        /// The <see cref="RoleNamespace"/> of this Role.
+        /// The <see cref="ObjectNamespace"/> of this Role.
         /// </summary>
-        public RoleNamespace Namespace { get; }
+        public ObjectNamespace Namespace { get; }
 
         /// <summary>
         /// The <see cref="RoleTypeId"/> of this Role.

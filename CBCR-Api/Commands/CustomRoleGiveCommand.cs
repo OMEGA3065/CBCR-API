@@ -48,7 +48,7 @@ namespace CustomRoleLib.Commands
                 return false;
             }
 
-            if (!RoleNamespace.TryGet(arguments.At(0), out var roleNamespace))
+            if (!ObjectNamespace.TryGet(arguments.At(0), out var roleNamespace))
             {
                 response = "Invalid role namespace format. Expected format: 'plugin_namespace:role_identifier'";
                 return false;

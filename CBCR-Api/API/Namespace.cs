@@ -1,11 +1,11 @@
 namespace CustomRoleLib.API
 {
     /// <summary>
-    /// An item namespace for a <see cref="ICustomRole{T}"/>.
+    /// An object namespace.
     /// </summary>
-    public class RoleNamespace
+    public class ObjectNamespace
     {
-        private RoleNamespace() {}
+        private ObjectNamespace() {}
 
         /// <summary>
         /// The plugin part of the namespace (PLUGIN_PART:ID_PART)
@@ -18,17 +18,17 @@ namespace CustomRoleLib.API
         public string RoleIdentifier;
 
         /// <summary>
-        /// Tries to obtain an <see cref="RoleNamespace"/> from a string in the namespace format.
+        /// Tries to obtain an <see cref="ObjectNamespace"/> from a string in the namespace format.
         /// <example>
         /// For example:
         /// <code>RoleNamespace.TryGet("my_plugin:my_custom_item", out var @namespace)</code>
-        /// will return true and the parsed <see cref="RoleNamespace"/> will be in <c>@namespace</c>.
+        /// will return true and the parsed <see cref="ObjectNamespace"/> will be in <c>@namespace</c>.
         /// </example>
         /// </summary>
         /// <param name="namespaceString">The <see cref="string"/> to try and parse.</param>
-        /// <param name="namespace">The parsed <see cref="RoleNamespace"/>.</param>
+        /// <param name="namespace">The parsed <see cref="ObjectNamespace"/>.</param>
         /// <returns>Whether the namespace has been parsed successfully.</returns>
-        public static bool TryGet(string namespaceString, out RoleNamespace @namespace)
+        public static bool TryGet(string namespaceString, out ObjectNamespace @namespace)
         {
             var split = namespaceString.Split(':');
             if (split.Length != 2)
@@ -37,7 +37,7 @@ namespace CustomRoleLib.API
                 return false;
             }
 
-            @namespace = new RoleNamespace
+            @namespace = new ObjectNamespace
             {
                 PluginNamespace = split[0],
                 RoleIdentifier = split[1]
@@ -46,12 +46,12 @@ namespace CustomRoleLib.API
         }
 
         /// <summary>
-        /// Parses a <c>namespaceString</c> to an <see cref="RoleNamespace"/>.
+        /// Parses a <c>namespaceString</c> to an <see cref="ObjectNamespace"/>.
         /// </summary>
         /// <param name="namespaceString">The <see cref="string"/> to parse.</param>
-        /// <returns>The parsed <see cref="RoleNamespace"/>.</returns>
+        /// <returns>The parsed <see cref="ObjectNamespace"/>.</returns>
         /// <exception cref="ArgumentException">For invalid <c>namespaceString</c>s</exception>
-        public static RoleNamespace Get(string namespaceString)
+        public static ObjectNamespace Get(string namespaceString)
         {
             if (TryGet(namespaceString, out var @namespace))
                 return @namespace;
@@ -60,15 +60,15 @@ namespace CustomRoleLib.API
         }
 
         /// <summary>
-        /// Parses a <c>pluginNamespace</c> with an <c>itemIdentifier</c> to an <see cref="RoleNamespace"/>.
+        /// Parses a <c>pluginNamespace</c> with an <c>itemIdentifier</c> to an <see cref="ObjectNamespace"/>.
         /// </summary>
-        /// <param name="pluginNamespace">The Plugin Namespace part of an <see cref="RoleNamespace"/> to parse.</param>
-        /// <param name="itemIdentifier">The Item ID part of an <see cref="RoleNamespace"/> to parse.</param>
-        /// <returns>The parsed <see cref="RoleNamespace"/>.</returns>
+        /// <param name="pluginNamespace">The Plugin Namespace part of an <see cref="ObjectNamespace"/> to parse.</param>
+        /// <param name="itemIdentifier">The Item ID part of an <see cref="ObjectNamespace"/> to parse.</param>
+        /// <returns>The parsed <see cref="ObjectNamespace"/>.</returns>
         /// <exception cref="ArgumentException">For invalid <c>namespaceString</c>s</exception>
-        public static RoleNamespace Get(string pluginNamespace, string itemIdentifier)
+        public static ObjectNamespace Get(string pluginNamespace, string itemIdentifier)
         {
-            return new RoleNamespace
+            return new ObjectNamespace
             {
                 PluginNamespace = pluginNamespace,
                 RoleIdentifier = itemIdentifier
@@ -76,7 +76,7 @@ namespace CustomRoleLib.API
         }
 
         /// <summary>
-        /// Parses this <see cref="RoleNamespace"/> to a <see cref="string"/>.
+        /// Parses this <see cref="ObjectNamespace"/> to a <see cref="string"/>.
         /// </summary>
         /// <returns>The parsed <see cref="string"/>.</returns>
         public override string ToString()
@@ -87,7 +87,7 @@ namespace CustomRoleLib.API
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj is not RoleNamespace) return false;
+            if (obj is not ObjectNamespace) return false;
             return obj.ToString() == ToString();
         }
 
@@ -98,7 +98,7 @@ namespace CustomRoleLib.API
         }
 
         /// <inheritdoc/>
-        public static bool operator ==(RoleNamespace a, RoleNamespace b)
+        public static bool operator ==(ObjectNamespace a, ObjectNamespace b)
         {
             if (ReferenceEquals(a, b)) return true;
             if (a is null ^ b is null) return false;
@@ -106,7 +106,7 @@ namespace CustomRoleLib.API
         }
 
         /// <inheritdoc/>
-        public static bool operator !=(RoleNamespace a, RoleNamespace b)
+        public static bool operator !=(ObjectNamespace a, ObjectNamespace b)
         {
             if (ReferenceEquals(a, b)) return false;
             if (a is null ^ b is null) return true;

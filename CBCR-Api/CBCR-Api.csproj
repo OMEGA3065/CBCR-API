@@ -51,6 +51,12 @@
 
     <None Include="..\LICENSE" Pack="true" PackagePath="" />
     <None Include="..\README.md" Pack="true" PackagePath="" />
+    <Reference Include="UnityEngine.TextCoreFontEngineModule">
+      <HintPath>..\..\..\SL_Managed\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>..\..\..\SL_Managed\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsRaCustomMenuBuild)'=='false'">
@@ -62,5 +68,6 @@
     <PackageReference Include="Northwood.LabAPI" Version="1.1.4" />
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
     <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+    <PackageReference Include="SecretAPI" Version="3.2.0" />
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CustomRoleExamples.Example
 {
     [CustomRole(RoleTypeId.ClassD)]
-    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent<TestRoleInstance>))]
+    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent))]
     [CustomRoleAttributeBase(typeof(InitializerComponent<TestRoleInstance>))]
     public class TestRole : CustomRoleBase<TestRoleInstance>
     {

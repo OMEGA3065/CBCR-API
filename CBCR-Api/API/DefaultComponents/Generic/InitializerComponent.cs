@@ -8,8 +8,9 @@ public interface IInitializable
 public class InitializerComponent<T> : ComponentBase<T>
     where T : RoleInstanceBase, IInitializable
 {
-    public override void OnCreatedInstance(T itemInstance)
+    public override void OnCreatedInstance(T instance)
     {
-        itemInstance.OnInitialized();
+        base.OnCreatedInstance(instance);
+        instance.OnInitialized();
     }
 }

@@ -24,7 +24,7 @@ namespace CustomRoleLib.API
         public abstract string Id { get; }
         protected virtual string PluginNamespace => GetType().Assembly.GetName().Name.ToSnakeCase();
         /// <inheritdoc/>
-        public virtual RoleNamespace Namespace => RoleNamespace.Get(PluginNamespace, Id);
+        public virtual ObjectNamespace Namespace => ObjectNamespace.Get(PluginNamespace, Id);
 
         private bool IsInitialized { get; set; }
 

@@ -28,9 +28,7 @@ namespace CustomRoleLib.API
         /// The list of all registered items.
         /// </summary>
         /// <returns>The list of all registered items according to their namespace.</returns>
-        public static readonly Dictionary<RoleNamespace, ICustomRole<object>> Roles = [];
-
-        private static readonly Dictionary<RoleTypeId, List<ICustomRole<object>>> RoleSpawns = [];
+        public static readonly Dictionary<ObjectNamespace, ICustomRole<object>> Roles = [];
 
         /// <summary>
         /// Registers a Custom Item Definition.
@@ -68,7 +66,7 @@ namespace CustomRoleLib.API
         /// <param name="itemNamespace">The namespace of the target item.</param>
         /// <param name="role">The resulting item.</param>
         /// <returns>Whether the namespace has an item definition assigned to it.</returns>
-        public static bool TryGetRole(RoleNamespace itemNamespace, out ICustomRole<object> role)
+        public static bool TryGetRole(ObjectNamespace itemNamespace, out ICustomRole<object> role)
         {
             return Roles.TryGetValue(itemNamespace, out role);
         }
@@ -80,7 +78,7 @@ namespace CustomRoleLib.API
         /// <param name="role">The resulting item.</param>
         /// <typeparam name="T">What <see cref="RoleInstanceBase"/> to cast to.</typeparam>
         /// <returns>Whether the namespace has an item definition assigned to it.</returns>
-        public static bool TryGetRole<T>(RoleNamespace itemNamespace, out ICustomRole<T> role)
+        public static bool TryGetRole<T>(ObjectNamespace itemNamespace, out ICustomRole<T> role)
         {
             bool success = Roles.TryGetValue(itemNamespace, out var itemUncast);
             if (!success) { role = null; return false; }

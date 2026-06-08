@@ -1,3 +1,4 @@
+using CustomAbilityLib.API;
 using LabApi.Features.Wrappers;
 
 namespace CustomRoleLib.API
@@ -5,13 +6,13 @@ namespace CustomRoleLib.API
     /// <summary>
     /// The base class for all instances of any Item from any ItemDefinition <see cref="CustomRoleBase{T}"/>
     /// </summary>
-    public abstract class RoleInstanceBase
+    public abstract class AbilityInstanceBase
     {
         /// <summary>
         /// The parent to which this <see cref="RoleInstanceBase"/> belongs to.
         /// </summary>
         /// <value>The parent as a generic <see cref="ICustomRole{T}"/> object.</value>
-        public ICustomRole<object> Parent { get; set; }
+        public ICustomAbility Parent { get; set; }
 
         /// <summary>
         /// The namespace of the parent to which this <see cref="RoleInstanceBase"/> belongs to.
@@ -26,38 +27,14 @@ namespace CustomRoleLib.API
         public Player Owner { get; set; }
 
         /// <summary>
-        /// A boolean value representing whether this role went through the initialization process.
-        /// This process ends either immediately if the role doesn't require the owner to have a role,
-        /// or it ends after their role was set to the configured role.
-        /// </summary>
-        /// <value>A value indicating whether this role instance has been initialized.</value>
-        public bool Initialized { get; internal set; }
-
-        /// <summary>
-        /// The internal Custom Item Instance ID for this object.
+        /// The internal Custom Ability Instance ID for this object.
         /// </summary>
         /// <value>The Instance ID.</value>
         public ushort InstanceId { get; set; } = GetNextInstanceId();
 
-        /// <summary>
-        /// Destroys this <see cref="RoleInstanceBase"/>.
-        /// </summary>
-        /// <param name="force">Whether to bypass any decision made by this <see cref="RoleInstanceBase"/>'s Item Definition's components.</param>
-        public void Destroy(bool force)
-        {
-            if (!CustomRoleManager.TryGetRole(Namespace, out var customRole))
-                return;
-            customRole.TryDestroyInstance(this, force);
-        }
-        /// <summary>
-        /// Checks whether a Player owner matches this <see cref="RoleInstanceBase"/>'s owner.
-        /// </summary>
-        /// <param name="owner"></param>
-        /// <returns></returns>
-        public bool Check(Player owner)
-        {
-            return Owner == owner;
-        }
+        public abstract void Create(Player player);
+        public abstract void Destroy();
+        public abstract bool Execute(out string response);
 
         protected bool Equals(RoleInstanceBase other)
         {

@@ -60,7 +60,7 @@ public abstract class ComponentBase<T> : ICustomRoleComponent<T> where T : RoleI
     public virtual void InitComponent(ICustomRole<T> role) { }
 
     /// <inheritdoc/>
-    public virtual void OnCreatedInstance(T itemInstance) => SubscribeEvents(itemInstance);
+    public virtual void OnCreatedInstance(T instance) => SubscribeEvents(instance);
 
     /// <inheritdoc/>
     public virtual bool OnCreatingInstance(T itemInstance) => true;

@@ -8,8 +8,8 @@ using UnityEngine;
 
 namespace CustomRoleExamples.Example
 {
-    [CustomRole(RoleTypeId.ChaosConscript)]
-    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent<SoloNaturalRoleInstance>))]
+    [CustomRole(RoleTypeId.NtfSergeant)]
+    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent))]
     [CustomRoleAttributeBase(typeof(InitializerComponent<SoloNaturalRoleInstance>))]
     public class SoloNaturalRoleRole : CustomRoleBase<SoloNaturalRoleInstance>
     {
