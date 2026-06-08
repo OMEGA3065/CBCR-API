@@ -5,6 +5,7 @@ using LabApi.Events.Handlers;
 using LabApi.Features;
 using LabApi.Loader.Features.Plugins;
 using LabApi.Loader.Features.Plugins.Enums;
+using RueI.API.Elements;
 
 namespace CustomRoleLib
 {
@@ -19,6 +20,8 @@ namespace CustomRoleLib
         public override Version Version => GetType().Assembly.GetName().Version;
         public override LoadPriority Priority => LoadPriority.Highest;
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
+
+        public static readonly Tag RueITag = new Tag("CBCR-TAG");
 
         public CustomRoleLibPlugin()
         {

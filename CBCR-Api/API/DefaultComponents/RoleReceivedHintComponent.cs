@@ -1,4 +1,6 @@
 using LabApi.Events.Arguments.PlayerEvents;
+using RueI.API;
+using RueI.API.Elements;
 
 namespace CustomRoleLib.API.DefaultComponents;
 
@@ -11,6 +13,12 @@ public class RoleReceivedHintComponent : ComponentBase<RoleInstanceBase>
     public override void OnCreatedInstance(RoleInstanceBase instance)
     {
         base.OnCreatedInstance(instance);
-        instance.Owner?.SendHint($"You have:\n{instance.Parent.Name}");
+        RueDisplay.Get(instance.Owner).Show(
+            CustomRoleLibPlugin.RueITag,
+            new BasicElement(200, $"You have:\n{instance.Parent.Name}")
+            {
+                ShowToSpectators = true
+            }, TimeSpan.FromSeconds(12f)
+        );
     }
 }

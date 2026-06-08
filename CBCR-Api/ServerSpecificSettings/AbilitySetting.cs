@@ -1,5 +1,7 @@
 using JetBrains.Annotations;
 using LabApi.Features.Wrappers;
+using RueI.API;
+using RueI.API.Elements;
 using SecretAPI.Features.UserSettings;
 using UnityEngine;
 using Logger = LabApi.Features.Console.Logger;
@@ -50,7 +52,13 @@ public class AbilitySetting : CustomKeybindSetting
         var text = string.IsNullOrEmpty(response)
             ? "<color=green>Successfully activated ability.</color>"
             : $"<color=red>{response}</color>";
-        KnownOwner.SendHint(text, 5f);
+        RueDisplay.Get(KnownOwner).Show(
+            CustomRoleLibPlugin.RueITag,
+            new BasicElement(200, text)
+            {
+                ShowToSpectators = true
+            }, TimeSpan.FromSeconds(5f)
+        );
     }
 
     public override CustomHeader Header => SSSHelpers.DefaultAbilityHeader;
