@@ -71,6 +71,20 @@ public static class CustomSpawnManager
         roleGroup.ResetType = type;
     }
 
+    public static void ResetAllSpentTokens(TokenResetType type)
+    {
+        foreach (var kvp in WeightedRoleLookup)
+        {
+            if (kvp.Value is not RoleGroup roleGroup
+                || roleGroup.ResetType != type)
+            {
+                continue;
+            }
+
+            roleGroup.ResetSpentTokens();
+        }
+    }
+
     internal static void OnPlayerChangingRole(PlayerChangingRoleEventArgs ev)
     {
         if (ev.ChangeReason == CustomRoleChange) return;
@@ -136,6 +150,7 @@ public static class CustomSpawnManager
         }
 
         public void AddSpawned() => _playerSpawns++;
+        public void ResetSpentTokens() => _playerSpawns = 0;
     }
 
     [Flags]
