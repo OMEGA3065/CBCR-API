@@ -66,7 +66,7 @@ public abstract class ServerSpecificSettingAbility<T> : CustomAbilityBase<T>
             return response;
 
         if (MaxUses > 0) UseLimits[player] = ++lastUseCount;
-        if (Cooldown > 0) Cooldowns[player] = NetworkTime.time + Cooldown;
+        if (Cooldown > 0) Cooldowns[player] = NetworkTime.time;
 
         return null;
     }
