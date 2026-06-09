@@ -49,9 +49,12 @@ public class AbilitySetting : CustomKeybindSetting
         if (!IsPressed) return;
 
         var response = _onActivated(KnownOwner);
-        var text = string.IsNullOrEmpty(response)
+        if (response == null) return;
+
+        var text = response == string.Empty
             ? "<color=green>Successfully activated ability.</color>"
             : $"<color=red>{response}</color>";
+
         RueDisplay.Get(KnownOwner).Show(
             CustomRoleLibPlugin.RueITag,
             new BasicElement(200, text)

@@ -52,7 +52,7 @@ public abstract class ServerSpecificSettingAbility<T> : CustomAbilityBase<T>
     protected virtual string SettingActivated(Player player)
     {
         if (!Check(player, out var instance))
-            return $"You do not have this ability!";
+            return null;
 
         var lastUseCount = 0;
         if (MaxUses > 0 && UseLimits.TryGetValue(player, out lastUseCount)
@@ -68,6 +68,6 @@ public abstract class ServerSpecificSettingAbility<T> : CustomAbilityBase<T>
         if (MaxUses > 0) UseLimits[player] = ++lastUseCount;
         if (Cooldown > 0) Cooldowns[player] = NetworkTime.time;
 
-        return null;
+        return string.Empty;
     }
 }
