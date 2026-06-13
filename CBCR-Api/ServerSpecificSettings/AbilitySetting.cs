@@ -18,10 +18,8 @@ public class AbilitySetting : CustomKeybindSetting
         bool preventInteractionOnGui = true, [CanBeNull] string hint = null)
     {
         if (AbilitySettings.ContainsKey(label))
-        {
-            Logger.Error($"Ability {label} is already registered!");
-            return null;
-        }
+            throw new ArgumentException($"Ability {label} is already registered!");
+
         return AbilitySettings[label] = new AbilitySetting(
             label, onActivated, suggestedKey, preventInteractionOnGui, hint
         );
