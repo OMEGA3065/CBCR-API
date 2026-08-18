@@ -195,6 +195,7 @@ namespace CustomRoleLib.API
         /// </summary>
         private void OnOwnerChangedRole(PlayerChangedRoleEventArgs ev)
         {
+            if (ev.Player == null) return;
             if (!Check(ev.Player, out var roleInstanceU) || roleInstanceU is not T roleInstance) return;
             if (ev.ChangeReason is RoleChangeReason.Destroyed)
             {
