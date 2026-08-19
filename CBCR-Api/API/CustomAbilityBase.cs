@@ -114,7 +114,7 @@ namespace CustomAbilityLib.API
         /// </summary>
         protected virtual void OnOwnerChangingRole(PlayerChangingRoleEventArgs ev)
         {
-            if (!ev.IsAllowed) return;
+            if (!ev.IsAllowed || ev.Player == null) return;
             if (!Check(ev.Player, out var abilityInstanceU) || abilityInstanceU is not T abilityInstance) return;
             DestroyInstance(ev.Player, abilityInstance);
         }
