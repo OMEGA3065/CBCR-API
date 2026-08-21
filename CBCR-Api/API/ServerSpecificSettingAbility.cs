@@ -11,7 +11,7 @@ namespace CustomRoleLib.API;
 public abstract class ServerSpecificSettingAbility<T> : CustomAbilityBase<T>
     where T : AbilityInstanceBase, new()
 {
-    private CustomKeybindSetting ServerSpecificSetting;
+    private CustomKeybindSetting _serverSpecificSetting;
 
     protected virtual string SettingHintDescription => Description;
     protected virtual KeyCode SuggestedKey => KeyCode.None;
@@ -26,20 +26,21 @@ public abstract class ServerSpecificSettingAbility<T> : CustomAbilityBase<T>
     {
         base.SubscribeEvents();
 
-        ServerSpecificSetting = AbilitySetting.RegisterNew(
+        _serverSpecificSetting = AbilitySetting.RegisterNew(
             Name, SettingActivated, SuggestedKey,
             PreventInteractionsOnUI, SettingHintDescription
         );
 
-        CustomSetting.Register(ServerSpecificSetting);
+        if (_serverSpecificSetting == null) return;
+        CustomSetting.Register(_serverSpecificSetting);
     }
 
     protected override void UnsubscribeEvents()
     {
         base.UnsubscribeEvents();
 
-        if (ServerSpecificSetting == null) return;
-        CustomSetting.UnRegister(ServerSpecificSetting);
+        if (_serverSpecificSetting == null) return;
+        CustomSetting.UnRegister(_serverSpecificSetting);
     }
 
     protected override void DestroyInstance(Player owner, T abilityInstance)

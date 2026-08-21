@@ -87,6 +87,7 @@ public static class CustomSpawnManager
 
     internal static void OnPlayerChangingRole(PlayerChangingRoleEventArgs ev)
     {
+        if (ev.Player == null) return;
         if (CustomRoleLibPlugin.Instance.Config?.EnableNaturalSpawning != true) return;
         if (ev.ChangeReason == CustomRoleChange) return;
         if (!RoleSpawnChangeReasons.Contains(ev.ChangeReason)) return;

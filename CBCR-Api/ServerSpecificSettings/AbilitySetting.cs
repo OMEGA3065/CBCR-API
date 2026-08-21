@@ -17,15 +17,18 @@ public class AbilitySetting : CustomKeybindSetting
         KeyCode suggestedKey = KeyCode.None,
         bool preventInteractionOnGui = true, [CanBeNull] string hint = null)
     {
-        if (AbilitySettings.ContainsKey(label))
-            throw new ArgumentException($"Ability {label} is already registered!");
+        if (AbilitySettings.TryGetValue(label, out var setting))
+        {
+            setting.AbilityActivated.Add(onActivated);
+            return null;
+        }
 
         return AbilitySettings[label] = new AbilitySetting(
             label, onActivated, suggestedKey, preventInteractionOnGui, hint
         );
     }
 
-    private readonly Func<Player, string> _onActivated;
+    private List<Func<Player, string>> AbilityActivated = [];
 
     protected AbilitySetting(string label, Func<Player, string> onActivated,
         KeyCode suggestedKey = KeyCode.None,
@@ -33,11 +36,20 @@ public class AbilitySetting : CustomKeybindSetting
         : base(null, label, suggestedKey, preventInteractionOnGui,
             false, hint)
     {
-        _onActivated = onActivated;
+        AbilityActivated.Add(onActivated);
+    }
+
+    protected AbilitySetting(string label, List<Func<Player, string>> onActivated,
+        KeyCode suggestedKey = KeyCode.None,
+        bool preventInteractionOnGui = true, [CanBeNull] string hint = null)
+        : base(null, label, suggestedKey, preventInteractionOnGui,
+            false, hint)
+    {
+        AbilityActivated.AddRange(onActivated);
     }
 
     protected override CustomSetting CreateDuplicate()
-        => new AbilitySetting(Label, _onActivated, Base.SuggestedKey,
+        => new AbilitySetting(Label, AbilityActivated, Base.SuggestedKey,
             Base.PreventInteractionOnGUI, DescriptionHint);
 
     protected override void HandleSettingUpdate()
@@ -46,7 +58,13 @@ public class AbilitySetting : CustomKeybindSetting
         if (KnownOwner == null) return;
         if (!IsPressed) return;
 
-        var response = _onActivated(KnownOwner);
+        string response = null;
+        foreach (var activator in AbilityActivated)
+        {
+            response = activator(KnownOwner);
+            if (response != null) break;
+        }
+
         if (response == null) return;
 
         var text = response == string.Empty
