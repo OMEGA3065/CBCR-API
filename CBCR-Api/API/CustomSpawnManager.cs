@@ -89,6 +89,7 @@ public static class CustomSpawnManager
     {
         if (ev.Player == null) return;
         if (CustomRoleLibPlugin.Instance.Config?.EnableNaturalSpawning != true) return;
+        if (ev.Player.IsDummy && ev.Player.ReferenceHub.serverRoles.NetworkHideFromPlayerList) return;
         if (ev.ChangeReason == CustomRoleChange) return;
         if (!RoleSpawnChangeReasons.Contains(ev.ChangeReason)) return;
 
