@@ -1,9 +1,8 @@
+using CustomRoleLib.Helpers;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 using Respawning.Objectives;
-using RueI.API;
-using RueI.API.Elements;
 
 namespace CustomRoleLib.API.DefaultComponents;
 
@@ -19,7 +18,7 @@ public class RoleNameDisplayComponent : ComponentBase<RoleInstanceBase>
     public const PlayerInfoArea SelectAreas = PlayerInfoArea.CustomInfo | PlayerInfoArea.UnitName |
                                               PlayerInfoArea.PowerStatus | PlayerInfoArea.Badge;
 
-    public static readonly Tag RoleTypeTag = new("CustomRoleTypeHint");
+    private const string RoleTypeTag = "CustomRoleTypeHint";
 
     public override void OnCreatedInstance(RoleInstanceBase instance)
     {
@@ -32,10 +31,10 @@ public class RoleNameDisplayComponent : ComponentBase<RoleInstanceBase>
         instance.Owner.CustomInfo = info;
         instance.Owner.InfoArea = SelectAreas;
 
-        var display = RueDisplay.Get(instance.Owner);
-        display.Show(RoleTypeTag, new BasicElement(25,
-        $"<pos=1em><line-height=50%><size=50%><color={instance.Owner.Role.GetRoleColor().ToHex()}><align=left><pos=4em>Role:</align><br><align=left><pos=4em>{instance.Parent.Name}</align></color></size></line-height>"
-        ){ ShowToSpectators = true });
+        if (!CustomRoleLibPlugin.RueIActive) return;
+        var hint =
+            $"<pos=1em><line-height=50%><size=50%><color={instance.Owner.Role.GetRoleColor().ToHex()}><align=left><pos=4em>Role:</align><br><align=left><pos=4em>{instance.Parent.Name}</align></color></size></line-height>";
+        RueIHelpers.DisplayHint(instance.Owner, RoleTypeTag, hint, 25, null, showToSpectators: true);
     }
 
     public override void OnDestroyedInstance(RoleInstanceBase instance)
@@ -44,7 +43,8 @@ public class RoleNameDisplayComponent : ComponentBase<RoleInstanceBase>
         if (instance.Owner == null) return;
         instance.Owner.CustomInfo = "";
         instance.Owner.InfoArea = AllAreas;
-        var display = RueDisplay.Get(instance.Owner);
-        display.Remove(RoleTypeTag);
+
+        if (!CustomRoleLibPlugin.RueIActive) return;
+        RueIHelpers.RemoveHint(instance.Owner, RoleTypeTag);
     }
 }

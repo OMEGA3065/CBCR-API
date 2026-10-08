@@ -3,9 +3,9 @@ using HarmonyLib;
 using LabApi.Events.CustomHandlers;
 using LabApi.Events.Handlers;
 using LabApi.Features;
+using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
 using LabApi.Loader.Features.Plugins.Enums;
-using RueI.API.Elements;
 
 namespace CustomRoleLib
 {
@@ -21,7 +21,7 @@ namespace CustomRoleLib
         public override LoadPriority Priority => LoadPriority.Highest;
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
 
-        public static readonly Tag RueITag = new Tag("CBCR-TAG");
+        public const string RueITag = "CBCR-TAG";
 
         public CustomRoleLibPlugin()
         {
@@ -31,6 +31,8 @@ namespace CustomRoleLib
         private Harmony _harmony;
         private EventHandlers _handlers = new();
 
+        public static bool RueIActive { get; private set; }
+
         public override void Enable()
         {
             _harmony = new Harmony("omega3065.custom_role_lib");
@@ -39,6 +41,20 @@ namespace CustomRoleLib
 #if IsRaCustomMenuBuild == false
             Compat.RaCustomMenuCompat.Init();
 #endif
+            RueIActive = false;
+            try
+            {
+                var type = LabApi.Loader.PluginLoader.Plugins.Values.Any(
+                    a => a.DefinedTypes.Any(t => t.FullName == "RueI.API.RueDisplay")
+                );
+                Logger.Debug($"Loaded compatibility with RueI. ({type})");
+                RueIActive = true;
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
+
             PlayerEvents.ChangingRole += CustomSpawnManager.OnPlayerChangingRole;
 
             CustomHandlersManager.RegisterEventsHandler(_handlers);

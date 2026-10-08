@@ -1,15 +1,14 @@
+using CustomRoleLib.Helpers;
 using JetBrains.Annotations;
 using LabApi.Features.Wrappers;
-using RueI.API;
-using RueI.API.Elements;
 using SecretAPI.Features.UserSettings;
 using UnityEngine;
-using Logger = LabApi.Features.Console.Logger;
 
 namespace CustomRoleLib.ServerSpecificSettings;
 
 public class AbilitySetting : CustomKeybindSetting
 {
+    private const float HintDurationSeconds = 5f;
     private static readonly Dictionary<string, AbilitySetting> AbilitySettings = [];
 
     public static AbilitySetting RegisterNew(string label,
@@ -71,13 +70,13 @@ public class AbilitySetting : CustomKeybindSetting
             ? "<color=green>Successfully activated ability.</color>"
             : $"<color=red>{response}</color>";
 
-        RueDisplay.Get(KnownOwner).Show(
-            CustomRoleLibPlugin.RueITag,
-            new BasicElement(200, text)
-            {
-                ShowToSpectators = true
-            }, TimeSpan.FromSeconds(5f)
-        );
+        if (!CustomRoleLibPlugin.RueIActive)
+        {
+            KnownOwner.SendHint(text, HintDurationSeconds);
+            return;
+        }
+
+        RueIHelpers.DisplayHint(KnownOwner, CustomRoleLibPlugin.RueITag, text, 200f, HintDurationSeconds, true);
     }
 
     public override CustomHeader Header => SSSHelpers.DefaultAbilityHeader;
