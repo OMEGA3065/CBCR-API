@@ -6,7 +6,7 @@
     <DebugType>embedded</DebugType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PackageId>Omega3065.ComponentBasedCustomRoleAPI</PackageId>
-    <Version>0.0.0.1</Version>
+    <Version>0.1.0.0</Version>
     <Authors>OMEGA3065</Authors>
     <IsPackable>true</IsPackable>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
