@@ -2,9 +2,9 @@ using CustomRoleLib.API;
 using CustomRoleLib.API.Attributes;
 using CustomRoleLib.API.DefaultComponents;
 using CustomRoleLib.API.DefaultComponents.Generic;
+using InventorySystem.Items;
 using MEC;
 using PlayerRoles;
-using UnityEngine;
 
 namespace CustomRoleExamples.Example
 {

@@ -4,7 +4,6 @@ using LabApi.Features.Wrappers;
 using Mirror;
 using SecretAPI.Features.UserSettings;
 using UnityEngine;
-using Logger = LabApi.Features.Console.Logger;
 
 namespace CustomRoleLib.API;
 

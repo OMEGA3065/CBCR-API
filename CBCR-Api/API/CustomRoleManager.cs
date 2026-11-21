@@ -1,9 +1,7 @@
 using System.Reflection;
 using CustomRoleLib.API.Attributes;
 using HarmonyLib;
-using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Console;
-using PlayerRoles;
 
 namespace CustomRoleLib.API
 {

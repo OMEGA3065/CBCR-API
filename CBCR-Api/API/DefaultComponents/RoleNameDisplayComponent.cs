@@ -1,5 +1,4 @@
 using CustomRoleLib.Helpers;
-using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 using Respawning.Objectives;

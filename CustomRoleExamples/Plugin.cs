@@ -1,12 +1,10 @@
 using CustomAbilityLib.API;
 using CustomRoleLib;
 using CustomRoleLib.API;
-using CustomRoleLib.ServerSpecificSettings;
 using HarmonyLib;
 using LabApi.Features;
 using LabApi.Loader.Features.Plugins;
 using LabApi.Loader.Features.Plugins.Enums;
-using SecretAPI.Features.UserSettings;
 
 namespace CustomRoleExamples
 {

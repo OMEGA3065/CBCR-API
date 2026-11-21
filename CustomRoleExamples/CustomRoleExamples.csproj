@@ -6,13 +6,13 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp.dll"/>
-    <Reference Include="Assembly-CSharp-firstpass.dll"/>
-    <Reference Include="UnityEngine.CoreModule.dll"/>
-    <Reference Include="UnityEngine.PhysicsModule.dll"/>
+    <Reference Include="Northwood.SCPSL"/>
+    <Reference Include="DigitalDust"/>
+    <Reference Include="UnityEngine.CoreModule"/>
+    <Reference Include="UnityEngine.PhysicsModule"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Northwood.LabAPI" Version="1.1.4" />
+    <PackageReference Include="Northwood.LabAPI" Version="1.1.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CBCR-Api\CBCR-Api.csproj" />

@@ -2,7 +2,6 @@ using System.Reflection;
 using CustomRoleLib.API;
 using CustomRoleLib.API.Attributes;
 using HarmonyLib;
-using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 

@@ -3,7 +3,6 @@ using CustomRoleLib.API.Attributes;
 using CustomRoleLib.API.DefaultComponents;
 using CustomRoleLib.API.DefaultComponents.Generic;
 using PlayerRoles;
-using UnityEngine;
 
 namespace CustomRoleExamples.Example
 {

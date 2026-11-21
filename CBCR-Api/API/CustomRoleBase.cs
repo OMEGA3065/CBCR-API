@@ -5,7 +5,6 @@ using CustomRoleLib.API.Attributes;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
-using UnityEngine;
 using Logger = LabApi.Features.Console.Logger;
 
 namespace CustomRoleLib.API
