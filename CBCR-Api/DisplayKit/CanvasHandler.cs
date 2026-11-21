@@ -3,7 +3,7 @@ using Mirror;
 
 namespace CustomRoleLib.DisplayKit;
 
-public class CanvasHandler<T> where T : ICanvasReference
+internal class CanvasHandler<T> where T : ICanvasReference
 {
     private bool _loaded;
     public T Reference { get; }

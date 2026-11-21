@@ -22,7 +22,7 @@ namespace CustomRoleLib.API
         /// <inheritdoc/>
         public abstract string Description { get; }
 
-        public virtual Color Color => Type?.GetRoleColor() ?? Color.white;
+        public virtual Color? Color => null;
 
         /// <inheritdoc/>
         public abstract string Id { get; }

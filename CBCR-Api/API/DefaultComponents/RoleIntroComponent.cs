@@ -52,7 +52,7 @@ public class RoleIntroComponent : ComponentBase<RoleInstanceBase>
         handler.Effect(() =>
         {
             reference.Role = instance.Parent.Name.ToUpper();
-            reference.RoleColor = instance.Owner.Role.GetRoleColor();
+            reference.RoleColor = instance.Parent.Color ?? instance.Owner.Role.GetRoleColor();
             reference.Description = instance.Parent.Description;
             reference.LastOwner = instance;
             reference.Canvas.Show();

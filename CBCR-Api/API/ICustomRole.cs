@@ -24,7 +24,7 @@ namespace CustomRoleLib.API
         /// <summary>
         /// The color of this Role.
         /// </summary>
-        public Color Color { get; }
+        public Color? Color { get; }
 
         /// <summary>
         /// The ID part of this Role's namespace (ex. pluginNamespace:ID).
