@@ -119,6 +119,7 @@ public static class CustomSpawnManager
             {
                 ev.ChangeReason = CustomRoleChange;
                 ev.NewRole = role.Type.Value;
+                if (role.SkipIntro) ev.SpawnFlags &= ~RoleSpawnFlags.ShowIntroScreen;
             }
 
             if (WeightedRoleLookup.TryGetValue(role.RoleSpawnGroup, out var group))

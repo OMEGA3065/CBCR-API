@@ -10,7 +10,7 @@ using PlayerRoles;
 namespace CustomRoleExamples.Example
 {
     [CustomRole(RoleTypeId.Scientist)]
-    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent))]
+    [CustomRoleAttributeBase(typeof(RoleIntroComponent))]
     [CustomRoleAttributeBase(typeof(InitializerComponent<NaturalRoleInstance>))]
     [CustomSpawnpointRole<NaturalRoleInstance>(RoleTypeId.FacilityGuard)]
     public class NaturalRole : CustomRoleBase<NaturalRoleInstance>

@@ -5,6 +5,8 @@ using CustomRoleLib.API.Attributes;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
+using Respawning.Objectives;
+using UnityEngine;
 using Logger = LabApi.Features.Console.Logger;
 
 namespace CustomRoleLib.API
@@ -19,8 +21,14 @@ namespace CustomRoleLib.API
         public abstract string Name { get; }
         /// <inheritdoc/>
         public abstract string Description { get; }
+
+        public virtual Color Color => Type?.GetRoleColor() ?? Color.white;
+
         /// <inheritdoc/>
         public abstract string Id { get; }
+
+        public virtual bool SkipIntro { get; set; }
+
         protected virtual string PluginNamespace => GetType().Assembly.GetName().Name.ToSnakeCase();
         /// <inheritdoc/>
         public virtual ObjectNamespace Namespace => ObjectNamespace.Get(PluginNamespace, Id);
@@ -156,7 +164,8 @@ namespace CustomRoleLib.API
             if (roleInstance == null) return false;
             roleInstance.Namespace = Namespace;
             if (!skipManualRoleChange && Type.HasValue)
-                player.SetRole(Type.Value, CustomSpawnManager.CustomRoleChange, RoleSpawnFlags.None);
+                player.SetRole(Type.Value, CustomSpawnManager.CustomRoleChange,
+                    roleInstance.Parent.SkipIntro ? RoleSpawnFlags.None : RoleSpawnFlags.ShowIntroScreen);
             return true;
         }
 

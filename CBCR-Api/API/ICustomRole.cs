@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
+using UnityEngine;
 
 namespace CustomRoleLib.API
 {
@@ -21,9 +22,19 @@ namespace CustomRoleLib.API
         public string Description { get; }
 
         /// <summary>
+        /// The color of this Role.
+        /// </summary>
+        public Color Color { get; }
+
+        /// <summary>
         /// The ID part of this Role's namespace (ex. pluginNamespace:ID).
         /// </summary>
         public string Id { get; }
+
+        /// <summary>
+        /// Whether the vanilla Intro Screen should be disabled when giving this role.
+        /// </summary>
+        public bool SkipIntro { get; set; }
 
         /// <summary>
         /// The <see cref="ObjectNamespace"/> of this Role.

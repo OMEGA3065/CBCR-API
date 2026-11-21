@@ -9,7 +9,7 @@ using PlayerRoles;
 namespace CustomRoleExamples.Example
 {
     [CustomRole(RoleTypeId.NtfSergeant)]
-    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent))]
+    [CustomRoleAttributeBase(typeof(RoleIntroComponent))]
     [CustomRoleAttributeBase(typeof(InitializerComponent<SoloNaturalRoleInstance>))]
     public class SoloNaturalRoleRole : CustomRoleBase<SoloNaturalRoleInstance>
     {

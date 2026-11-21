@@ -1,4 +1,5 @@
 using CustomRoleLib.API;
+using CustomRoleLib.API.DefaultComponents;
 using HarmonyLib;
 using LabApi.Events.CustomHandlers;
 using LabApi.Events.Handlers;
@@ -58,6 +59,7 @@ namespace CustomRoleLib
             PlayerEvents.ChangingRole += CustomSpawnManager.OnPlayerChangingRole;
 
             CustomHandlersManager.RegisterEventsHandler(_handlers);
+            InitializeComponents();
         }
 
         public override void Disable()
@@ -65,6 +67,11 @@ namespace CustomRoleLib
             _harmony.UnpatchAll();
             PlayerEvents.ChangingRole -= CustomSpawnManager.OnPlayerChangingRole;
             CustomHandlersManager.UnregisterEventsHandler(_handlers);
+        }
+
+        private static void InitializeComponents()
+        {
+            RoleIntroComponent.Init();
         }
     }
 }

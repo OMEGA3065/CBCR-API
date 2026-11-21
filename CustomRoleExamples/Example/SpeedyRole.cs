@@ -8,7 +8,7 @@ using PlayerRoles;
 namespace CustomRoleExamples.Example
 {
     [CustomRole(RoleTypeId.NtfPrivate)]
-    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent))]
+    [CustomRoleAttributeBase(typeof(RoleIntroComponent))]
     [CustomRoleAttributeBase(typeof(RoleNameDisplayComponent))]
     [CustomRoleAttributeBase(typeof(InitializerComponent<SpeedyRoleInstance>))]
     public class SpeedyRole : CustomRoleBase<SpeedyRoleInstance>

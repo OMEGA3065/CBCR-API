@@ -13,6 +13,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/OMEGA3065/CBCR-API/</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>CustomRoleLib</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Northwood.SCPSL" Publicize="true" Private="false" Pack="false" />
@@ -23,6 +24,8 @@
     <Reference Include="Mirror" Private="false" Pack="false" />
     <Reference Include="Mono.Security" Private="false" Pack="false" />
     <Reference Include="UnityEngine.PhysicsModule" Private="false" Pack="false" />
+    <Reference Include="UnityEngine.UIElementsModule" Private="false" Pack="false" />
+    <Reference Include="UnityEngine.TextRenderingModule" Private="false" Pack="false" />
     <Reference Include="NorthwoodLib" Private="false" Pack="false" />
 
     <None Include="..\LICENSE" Pack="true" PackagePath="" />

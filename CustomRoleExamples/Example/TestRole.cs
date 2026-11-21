@@ -7,7 +7,7 @@ using PlayerRoles;
 namespace CustomRoleExamples.Example
 {
     [CustomRole(RoleTypeId.ClassD)]
-    [CustomRoleAttributeBase(typeof(RoleReceivedHintComponent))]
+    [CustomRoleAttributeBase(typeof(RoleIntroComponent))]
     [CustomRoleAttributeBase(typeof(InitializerComponent<TestRoleInstance>))]
     public class TestRole : CustomRoleBase<TestRoleInstance>
     {
